@@ -18,13 +18,14 @@ String ledStateG;
 int estado = LOW;                         //Definimos la variable que va a recoger el estado del LED
 int pulsador = 23;                        // Estado del pulsador
 int contador = 0;
+const int potPin=34;
 
 // Creamos el servidor AsyncWebServer en el puerto 80
 AsyncWebServer server(80);
 
 // leemos la temperatura y la mostramos
 String getTemperature() {
-    float adc = analogRead(4);
+    float adc = analogRead(A0);
     Serial.println(adc);
     return String(adc);
 }
@@ -132,5 +133,7 @@ void setup()
 }
 
 void loop(){
+  int sensorValue = analogRead(A0)/4;
+  digitalWrite(PinLedG, sensorValue);
 
 }
