@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<meta charset='UTF-8'>
+<html>
+    <head>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>"
+        <link href='css/bootstrap.min.css' rel='stylesheet'>
+        <link href='css/bootstrap-theme.css' rel='stylesheet'>
+        <script src='js/bootstrap.min.js'></script>
+    </head>
+    <body>
+        <div class='container' style='height:4px; width:600px; background-color:blue'></div>
+            <nav id='header' class='navbar navbar-expand-lg navbar-white bg-white sticky-top'>
+                <div class='container'>
+                <img src='https://www.istec.org/blog-miembros/wp-content/uploads/sites/9/2018/06/ucb.jpg' alt='logo_ucb' style='display:block; margin:auto' width='300px'>
+                <a class='nav-link' style='font-size: 30px;' href='#'>NodeMCU como Estacion</a>
+                <a class='nav-link' style='font-size: 30px;' href='#'>Internet de las Cosas</a>
+                </div>
+            </nav>
+        <div class='container' style='height:4px; width:600px; background-color:blue'></div>
+
+
+        <div align="center" class='container'>
+            <div class='container'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr><th>Ip Local</th><th>Host Name</th><th>Status</th><th>SSID</th><th>PSK</th><th>RSSI</th>
+                            <th>Pres 1</th>><th>Pres 2</th>><th>Pres 3</th>><th>Pres 4</th>></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>%IP%</td>
+                            <td>%HOSTNAME%</td>
+                            <td>%STATUS%</td>
+                            <td>%SSID%</td>
+                            <td>%PSK%</td>                  
+                            <td id="rssi" name="rssi">%RSSI%</td>
+                            <td id="pres1">%PRES1%</td>
+                            <td id="pres2">%PRES2%</td>
+                            <td id="pres3">%PRES3%</td>
+                            <td id="pres4">%PRES4%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       </div>
+
+
+    </body>
+    <script>
+
+        setInterval(function ( ) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("rssi").innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", "/rssi", true);
+          xhttp.send();
+        }, 10000 ) ; 
+      
+      </script>
+</html>   

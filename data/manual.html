@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<meta charset='UTF-8'>
+<html>
+    <head>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>"
+        <link href='css/bootstrap.min.css' rel='stylesheet'>
+        <link href='css/bootstrap-theme.css' rel='stylesheet'>
+        <script src='js/bootstrap.min.js'></script>
+    </head>
+    <body>
+        <div class='container' style='height:4px; width:500px; background-color:blue'></div>
+            <nav id='header' class='navbar navbar-expand-lg navbar-white bg-white sticky-top'>
+                <div class='container'>
+                <img src='https://www.istec.org/blog-miembros/wp-content/uploads/sites/9/2018/06/ucb.jpg' alt='logo_ucb' style='display:block; margin:auto' width='300px'>
+                <a class='nav-link' style='font-size: 30px;' href='#'>NodeMCU como Estacion</a>
+                <a class='nav-link' style='font-size: 30px;' href='#'>Internet de las Cosas</a>
+                </div>
+            </nav>
+        <div class='container' style='height:4px; width:500px; background-color:blue'></div>
+        <div align="center"  class='container'>
+            <section class='container' style='width:250px; float:left;'>
+                <img src='https://cdn.shopify.com/s/files/1/0014/9202/5447/products/5mm_LED_3_of_6_1024x1024_56033c74-ac84-4f97-9522-ca5a41a7e99c_1024x1024@2x.jpg?v=1533248290' alt='rojo' style='display:block; margin:auto' width='250px'>
+                %ESTADO1%
+            </section>
+
+            <aside class='container' style='width:250px; float:left;'>
+                <img src='https://cdn.shopify.com/s/files/1/0014/9202/5447/products/5mm_LED_2_of_6_1024x1024_25d3aea5-7ecf-4e9c-8ffa-e94fd36484f1_1024x1024@2x.jpg?v=1537199301' alt='verde' style='display:block; margin:auto' width='250px'>
+                %ESTADO2%
+                
+            </aside>
+
+            <aside class='container' style='width:250px; float:left;'>
+                <img src='https://cdn.shopify.com/s/files/1/0014/9202/5447/products/5mm_LED_1_of_6_1024x1024_ed813921-2208-4900-91cd-6294a01d194f_1024x1024@2x.jpg?v=1533248294' alt='azul' style='display:block; margin:auto' width='250'>
+                %ESTADO3%
+            </aside>
+               
+            
+            <aside class='container' style='width:250px; float:left;'>
+                <img src='https://cdn.shopify.com/s/files/1/0014/9202/5447/products/5mm_LED_5_of_6_1024x1024_bf040ecd-230d-4c2d-8a96-0aa68c4ccb74_1024x1024@2x.jpg?v=1537348577' alt='amarillo' style='display:block; margin:auto' width='250px'>
+                %ESTADO4%
+            </aside>
+            <div class='container'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr><th>Ip Local</th><th>Host Name</th><th>Status</th><th>SSID</th><th>PSK</th><th>RSSI</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>%IP%</td>
+                            <td>%HOSTNAME%</td>
+                            <td>%STATUS%</td>
+                            <td>%SSID%</td>
+                            <td>%PSK%</td>
+                            <td id="rssi" name="rssi">%RSSI%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </body>
+    <script>
+        setInterval(function ( ) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("rssi").innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", "/rssi", true);
+          xhttp.send();
+        }, 10000 ) ;      
+
+      </script>
+</html>   

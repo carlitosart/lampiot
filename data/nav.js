@@ -14,7 +14,7 @@ document.write(`
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Opciones
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" style="background-color: transparent;">
               <li><a class="dropdown-item" href="#">Opción A: </a></li>
               <li><a class="dropdown-item" href="#">Opción B: </a></li>
               <li><a class="dropdown-item" href="#">Opción C: </a></li>
