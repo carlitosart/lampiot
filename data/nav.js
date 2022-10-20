@@ -15,8 +15,8 @@ document.write(`
               Opciones
             </a>
             <ul class="dropdown-menu" style="background-color: transparent;">
-              <li><a class="dropdown-item" href="#">Opción A: </a></li>
-              <li><a class="dropdown-item" href="#">Opción B: </a></li>
+              <li><a class="dropdown-item" href="manual.html">Opción A: </a></li>
+              <li><a class="dropdown-item" href="automatico.html">Opción B: </a></li>
               <li><a class="dropdown-item" href="#">Opción C: </a></li>
               <li><a class="dropdown-item" href="#">Opción D: </a></li>
               <li><a class="dropdown-item" href="#">Opción E: </a></li>
