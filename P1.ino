@@ -5,6 +5,22 @@
 // Sustituye los datos de tu red WIFI ( el nombre y la contraseña )
 #include "config.h"
 int page = 0;
+//
+#define ADC_VREF_mV    3300.0 // 3.3v en millivoltios
+#define ADC_RESOLUTION 4096.0
+#define LIGHT_SENSOR_PIN       36 // ESP32 pin GIOP36 (ADC0) conectado al LDR                
+int datoADC;
+float porcentaje=0.0;
+float factor=100.0/ADC_RESOLUTION;
+
+
+#define LED_PIN           19  
+
+#define PWM2_Ch    1
+#define PWM2_Res   8
+#define PWM2_Freq  1000
+int PWM2_DutyCycle = 0;
+
 
 // Puesta de LED GPIO
 const int ledPin = 2;
@@ -74,6 +90,15 @@ void setup()
 {
   // Establecemos la velocidad de conexión por el puerto serie
   Serial.begin(115200);
+  //PWM
+  Serial.println("Ejemplo de Sensor LDR ");
+  pinMode(LED_PIN,OUTPUT );
+  digitalWrite(LED_PIN, LOW); 
+  ledcAttachPin(19, 0);
+
+    ledcAttachPin(LED_PIN, PWM2_Ch);
+  ledcSetup(PWM2_Ch, PWM2_Freq, PWM2_Res);
+  //PWM
   // Ponemos a  ledPin  como salida
   pinMode(ledPin, OUTPUT);
   pinMode(PinLedG, OUTPUT);                //Inicializamos el GPIO2 como salida
@@ -160,5 +185,28 @@ void setup()
 void loop(){
   int sensorValue = analogRead(A0)/4;
   digitalWrite(PinLedG, sensorValue);
-
+   // lectura del dato analogico (valor entre 0 y 4095)
+  datoADC = analogRead(LIGHT_SENSOR_PIN);
+  porcentaje=factor*datoADC;
+  Serial.print("Valor Analogico = ");
+  Serial.print(datoADC);   
+  Serial.print("  Porcentaje = ");
+  Serial.print(porcentaje);  
+  if (datoADC < 40) {
+    Serial.println("%  => Oscuro");
+    ledcWrite(PWM2_Ch,  100); 
+  } else if (datoADC < 800) {
+    Serial.println("% => Tenue");
+    ledcWrite(PWM2_Ch,  400); 
+  } else if (datoADC < 2000) {
+    Serial.println("% => Claro");
+    ledcWrite(PWM2_Ch,  600); 
+  } else if (datoADC < 3200) {
+    Serial.println("% => Luminoso");
+    ledcWrite(PWM2_Ch,  800); 
+  } else {
+    Serial.println("% => Muy Luminoso");
+    ledcWrite(PWM2_Ch,  1000); 
+  }
+  delay(500);
 }
