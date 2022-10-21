@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <title>Opción D:</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: transparent;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Lámpara Iot</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Opciones
+                </a>
+                <ul class="dropdown-menu" style="background-color: transparent;">
+                  <li><a class="dropdown-item" href="/opcion_b.html">Opción B: </a></li>
+                  <li><a class="dropdown-item" href="/opcion_c.html">Opción C: </a></li>
+                  <li><a class="dropdown-item" href="/opcion_d.html">Opción D: </a></li>
+                  <li><a class="dropdown-item" href="/opcion_e.html">Opción E: </a></li>
+                  <li><a class="dropdown-item" href="/opcion_f.html">Opción F: </a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <center><img src="https://ucblpz.com/wp-content/uploads/2018/12/UCB-logo-lapaz.png" class="img-fluid"></center>
+  <h1>Lámpara IOT</h1>
+  <h3>Opción D</h3>
+  <br><br>
+  <h5 id="message"></h5>
+</body>
+<script>
+  // time of the day
+  var time = new Date().getHours();
+  // if time is between 6am and 8pm (18) write good day
+  if (time > 7 && time < 18) {
+    document.body.style.background = "linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)";
+    document.body.style.backgroundAttachment = "fixed";
+    var message = "Buen Día: Lámpara Apagada";
+    // display message in html
+    document.getElementById("message").innerHTML = message;
+    
+  } else {
+    // if not change the background to dark blue
+    document.body.style.background = "#ADD8E6";
+    document.body.style.backgroundAttachment = "fixed";
+    var message = "Buenas Noches: Lámpara Encendida";
+    // display message in html
+    document.getElementById("message").innerHTML = message;
+  }
+</script>
+</html>
