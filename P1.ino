@@ -4,6 +4,7 @@
 #include <SPIFFS.h>
 // Sustituye los datos de tu red WIFI ( el nombre y la contraseña )
 #include "config.h"
+int page = 0;
 
 // Puesta de LED GPIO
 const int ledPin = 2;
@@ -97,10 +98,34 @@ void setup()
   Serial.println(WiFi.localIP());
   
   // Ruta para cargar el archivo index.html
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-            request->send(SPIFFS, "/index.html", String(), false, processor);
-            });
-            
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 0;
+    request->send(SPIFFS, "/index.html", String(), false);
+  });
+
+  server.on("/opcion_b.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 1;
+    request->send(SPIFFS, "/opcion_b.html", String(), false);
+  });
+
+  server.on("/opcion_c.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 2;
+    request->send(SPIFFS, "/opcion_c.html", String(), false);
+  });
+  server.on("/opcion_d.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 3;
+    request->send(SPIFFS, "/opcion_d.html", String(), false);
+  });
+
+  server.on("/opcion_e.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 4;
+    request->send(SPIFFS, "/opcion_e.html", String(), false);
+  });
+
+  server.on("/opcion_f.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    page = 5;
+    request->send(SPIFFS, "/opcion_f.html", String(), false);
+  });
   // Ruta para cargar el archivo style.css
   server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
             request->send(SPIFFS, "/style.css", "text/css");
