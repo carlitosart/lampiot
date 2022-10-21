@@ -64,6 +64,9 @@ String getPressure() {
 String processor(const String& var)
 {
     Serial.print(var+" : ");
+    if (var == "SLIDERVALUE"){
+    return sliderValue;
+    }
     //esta función primero verifica si el marcador de posición es el ESTADO que hemos creado en el archivo HTML.
     if(var == "ESTADO")
     {   //Si lo está, entonces, de acuerdo con el estado del LED, ponemos la variable ledState en ON u OFF.
@@ -95,6 +98,13 @@ void setup()
   pinMode(LED_PIN,OUTPUT );
   digitalWrite(LED_PIN, LOW); 
   ledcAttachPin(19, 0);
+
+  ledcSetup(ledChannel, freq, resolution);
+  
+  // attach the channel to the GPIO to be controlled
+  ledcAttachPin(PinLedR, ledChannel);
+  
+  ledcWrite(ledChannel, sliderValue.toInt());
 
     ledcAttachPin(LED_PIN, PWM2_Ch);
   ledcSetup(PWM2_Ch, PWM2_Freq, PWM2_Res);
@@ -132,6 +142,20 @@ void setup()
     page = 1;
     request->send(SPIFFS, "/opcion_b.html", String(), false);
   });
+  server.on("/slider", HTTP_GET, [] (AsyncWebServerRequest *request) {
+    String inputMessage;
+    // GET input1 value on <ESP_IP>/slider?value=<inputMessage>
+    if (request->hasParam(PARAM_INPUT)) {
+      inputMessage = request->getParam(PARAM_INPUT)->value();
+      sliderValue = inputMessage;
+      ledcWrite(ledChannel, sliderValue.toInt());
+    }
+    else {
+      inputMessage = "No message sent";
+    }
+    Serial.println(inputMessage);
+    request->send(200, "text/plain", "OK");
+  });
 
   server.on("/opcion_c.html", HTTP_GET, [](AsyncWebServerRequest * request) {
     page = 2;
@@ -140,6 +164,16 @@ void setup()
   server.on("/opcion_d.html", HTTP_GET, [](AsyncWebServerRequest * request) {
     page = 3;
     request->send(SPIFFS, "/opcion_d.html", String(), false);
+  });
+  server.on("/opcion_d_dia.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    digitalWrite(PinLedG, LOW);
+    page = 3;
+    request->send(SPIFFS, "/opcion_d_dia.html", String(), false);
+  });
+  server.on("/opcion_d_noche.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    digitalWrite(PinLedG, HIGH);
+    page = 3;
+    request->send(SPIFFS, "/opcion_d_noche.html", String(), false);
   });
 
   server.on("/opcion_e.html", HTTP_GET, [](AsyncWebServerRequest * request) {
@@ -183,8 +217,7 @@ void setup()
 }
 
 void loop(){
-  int sensorValue = analogRead(A0)/4;
-  digitalWrite(PinLedG, sensorValue);
+  
    // lectura del dato analogico (valor entre 0 y 4095)
   datoADC = analogRead(LIGHT_SENSOR_PIN);
   porcentaje=factor*datoADC;
