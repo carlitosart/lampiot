@@ -6,14 +6,18 @@
 </head>
 <body></body>
 <script>
+  // get the url parameters
+  var urlParams = new URLSearchParams(window.location.search);
+  // get the value of the parameter
+  
   // time of the day
   var time = new Date().getHours();
   // if time is between 6am and 8pm (18) write good day
   if (time > 7 && time < 18) {
     // redirect to \opcion_d_dia.html
-    window.location.href = "/opcion_d_dia.html";
+    window.location.href = "opcion_d_dia.html";
   } else {
-    window.location.href = "/opcion_d_noche.html";
+    window.location.href = "opcion_d_noche.html";
   }
 </script>
 </html>

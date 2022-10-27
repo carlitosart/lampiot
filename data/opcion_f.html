@@ -8,13 +8,12 @@
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="http://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
-    <title>Opción C:</title>
+    <title>Opción F:</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: transparent;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Lámpara Iot</a>
+          <a class="navbar-brand" href="#">Horno Iot</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -41,59 +40,12 @@
       </nav>
     <center><img src="https://ucblpz.com/wp-content/uploads/2018/12/UCB-logo-lapaz.png" class="img-fluid"></center>
   <h1>Lámpara IOT</h1>
-  <h3>Opción C</h3>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="col">
-        <p><span id="textSliderValue">%SLIDERVALUE%</span></p>
-        <input type="range" onchange="updateSlider(this)" id="pwmSlider" min="0" max="140" value="%SLIDERVALUE%" step="1" class="slider">
-      </div>
-      <div class="col">
-        <div class="content">
-          <div class="card-grid"> 
-            <div class="card">
-              <p class="card-title">Temperatura: </p>
-              <center><canvas id="gauge-temperatureC"></canvas></center>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>Calentador: </h4>
-      
-      <h4>Enfriador: </h4>
-      <h4>LM35: </h4>
-    </div>
-  </div>
-
-
-  <script src="script.js"></script>
+  <h3>Opción F</h3>
+  <br><br>
+  <form action="" method="post">
+    <!--input for temperature in Celsius -->
+    <h4 for="celsius">Temperatura: </h4>
+    <input type="number" name="celsius" id="celsius" placeholder="Ingrese la temperatura: ">
+  </form>
 </body>
-<script>
-    
-  function getReadings(){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var myObj = JSON.parse(this.responseText);
-      console.log(myObj);
-      var temp = myObj.temperature;
-      gaugeTempC.value = temp;
-    }
-  }; 
-  xhr.open("GET", "/readings", true);
-  xhr.send();
-}
-
-  function updateSlider(element) 
-  {
-    var sliderValue = document.getElementById("pwmSlider").value;
-    document.getElementById("textSliderValue").innerHTML = sliderValue;
-    console.log(sliderValue);
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/slider?value="+sliderValue, true);
-    xhr.send();
-  } 
-</script>
 </html>
